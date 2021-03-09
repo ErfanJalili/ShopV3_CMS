@@ -1,0 +1,272 @@
+﻿@model Shop.ViewModels.ProductFormViewModel
+@{
+    ViewBag.Title = "ProductForm";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <section class="col-lg-12">
+        <div class="box box-danger box-solid ">
+            <div class="box-header">
+                <!-- tools box -->
+                <div class="pull-left box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+                <!-- /. tools -->
+                <i class="fa fa-error"></i>
+                <h3 class="box-title">
+                    سیستم خطایاب
+                </h3>
+            </div>
+            <div class="box-body">
+                <div class="tab-content no-padding">
+                    <div class="col-md-12 ">
+                        <p>درصورتی که محصول شما دارای شرایط ثبتی نباشد ،موارد اصلاحیه در اینجا به اطلاع شما می رسد.</p>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<div class="row">
+    <section class="col-lg-12">
+        <div class="box box-primary box-solid">
+            <div class="box-body">
+                <div class="tab-content no-padding">
+                    <div class="col-md-12 ">
+                        <a href="~/pages/All_Pages"> <button class="btn btn-primary">بازگشت به لیست نوشته ها</button></a>
+                        <a href="~/Categories/Index"> <button class="btn btn-primary">دسته بندی ها</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@using (Html.BeginForm("Save", "Pages", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+}))
+{
+    <div class="row">
+        <section class="col-lg-12">
+            <div class="box box-success box-solid">
+                <div class="box-body">
+                    <div class="tab-content no-padding">
+                        <div class="col-md-12 ">
+                            <input type="submit" class="btn btn-success" value="ثبت محصول" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <!-- right col -->
+        <section class="col-lg-7 connectedSortable">
+            <!--Name-->
+            <div class="box box-success box-solid collapsed-box">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-left box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <!-- /. tools -->
+                    <i class="fa fa-product-hunt"></i>
+                    <h3 class="box-title">
+                        نام برگه
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="tab-content no-padding">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control " } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <!-- /.box-body-->
+                @*<div class="box-footer no-border">
+                        <div class="row">
+                            <div class="col-xs-4 text-center" style="border-left: 1px solid #f4f4f4">
+                                <input class="btn btn-success" type="submit" name="save" value="save" />
+                            </div>
+
+                            <div class="col-xs-4 text-center" style="border-left: 1px solid #f4f4f4">
+                                <input class="btn btn-danger" type="submit" name="save" value="delete" />
+                            </div>
+
+                            <div class="col-xs-4 text-center">
+                                <input class="btn btn-primary" type="submit" name="save" value="draft" />
+                            </div>
+
+                        </div>
+
+                    </div>*@
+            </div>
+            <!--End-->
+            <!--FullDescription-->
+            <div class="box box-danger box-solid collapsed-box">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-left box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <!-- /. tools -->
+                    <i class="fa fa-file-text"></i>
+                    <h3 class="box-title">
+                        توضیحات محصول
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="tab-content no-padding">
+                        @Html.LabelFor(model => model.FullDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.FullDescription)
+                            @Html.ValidationMessageFor(model => model.FullDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End-->
+            <!--ShortDescription-->
+            <div class="box box-default box-solid collapsed-box">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-left box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <!-- /. tools -->
+                    <i class="fa fa-file-text"></i>
+                    <h3 class="box-title">
+                        توضیح کوتاه
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="tab-content no-padding">
+                        <div class="form-group col-md-12">
+                            @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ShortDescription)
+                                @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End-->
+        </section>
+        <!-- /.right col -->
+        <!-- left col (We are only adding the ID to make the widgets sortable)-->
+        <section class="col-lg-5 connectedSortable">
+
+            <!-- Category box -->
+            <div class="box box-danger box-solid collapsed-box">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-left box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <!-- /. tools -->
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">
+                        دسته بندی ها
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.CategoryId, new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), new { @class = " js-example-basic-single ", @style = "width:500px;" })
+                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box -->
+            <!-- Pic box -->
+            <div class="box box-primary box-solid  collapsed-box">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-left box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <!-- /. tools -->
+                    <i class="fa fa-image"></i>
+                    <h3 class="box-title">
+                        تصویر محصول
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <div>
+                            <img id="user_img" height="100" width="90" style="border:solid" />
+                        </div>
+                        <div>
+                            <input type="file" title="search image" id="file" name="files" onchange="show(this)" />
+                        </div>
+
+                        @*<div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.ImageUrl, new { @class = "control-label col-md-12" })
+                                <div class="col-md-12 ">
+                                    @Html.TextAreaFor(m => m.ImageUrl, new { @class = "control-form col-md-12" })
+                                    @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- left col -->
+
+
+    </div>
+
+
+
+}
+@section scripts
+    {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+                dir: "rtl"
+            });
+
+
+        });
+
+        function show(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#user_img').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+
+
+    </script>
+
+
+
+}
+

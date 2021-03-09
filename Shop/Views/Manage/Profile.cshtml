@@ -1,0 +1,415 @@
+﻿@model Shop.Models.IndexViewModel
+
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+<!-- main -->
+<main class="profile-user-page default">
+    <div class="container">
+        <div class="row">
+            <div class="profile-page col-xl-9 col-lg-8 col-md-12 order-2">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-12">
+                            <h1 class="title-tab-content">اطلاعات شخصی</h1>
+                        </div>
+                        <div class="content-section default">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <p>
+                                        <span class="title">نام و نام خانوادگی :</span>
+                                        <span>@User.Identity.GetUserName()</span>
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <p>
+                                        <span class="title">پست الکترونیک :</span>
+                                        <span>@User.Identity.GetUserName()</span>
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <p>
+                                        <span class="title">شماره تلفن همراه:</span>
+                                        @if (Model.Phone != null)
+                                        {
+                                            <span>@Model.Phone</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span>-</span>
+
+                                        }
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <p>
+                                        <span class="title">شماره اصلی :</span>
+                                        <span>-</span>
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <p>
+                                        <span class="title">دریافت خبرنامه :</span>
+                                        <span>بله</span>
+                                    </p>
+                                </div>
+                                @*<div class="col-sm-12 col-md-6">
+                                    <p>
+                                        <span class="title">شماره کارت :</span>
+                                        <span>-</span>
+                                    </p>
+                                </div>*@
+                                @*<div class="col-12 text-center">
+                                    <a href="profile-additional-info.html" class="btn-link-border form-account-link">
+                                        ویرایش اطلاعات شخصی
+                                    </a>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-lg-6">
+                        <div class="col-12">
+                            <h1 class="title-tab-content">لیست آخرین علاقمندی ها</h1>
+                        </div>
+                        <div class="content-section default">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="profile-recent-fav-row">
+                                        <a href="#" class="profile-recent-fav-col profile-recent-fav-col-thumb">
+                                            <img src="assets/img/cart/4560621.jpg">
+                                        </a>
+                                        <div class="profile-recent-fav-col profile-recent-fav-col-title">
+                                            <a href="#">
+                                                <h4 class="profile-recent-fav-name">
+                                                    گوشی موبایل اپل مدل iPhone XR دو سیم کارت ظرفیت 256 گیگابایت
+                                                </h4>
+                                            </a>
+                                            <div class="profile-recent-fav-price">ناموجود</div>
+                                        </div>
+                                        <div class="profile-recent-fav-col profile-recent-fav-col-actions">
+                                            <button class="btn-action btn-action-remove">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="profile-recent-fav-row">
+                                        <a href="#" class="profile-recent-fav-col profile-recent-fav-col-thumb">
+                                            <img src="assets/img/cart/3794614.jpg">
+                                        </a>
+                                        <div class="profile-recent-fav-col profile-recent-fav-col-title">
+                                            <a href="#">
+                                                <h4 class="profile-recent-fav-name">
+                                                    گوشی موبایل اپل مدل iPhone XR دو سیم کارت ظرفیت 256 گیگابایت
+                                                </h4>
+                                            </a>
+                                            <div class="profile-recent-fav-price">ناموجود</div>
+                                        </div>
+                                        <div class="profile-recent-fav-col profile-recent-fav-col-actions">
+                                            <button class="btn-action btn-action-remove">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <a href="#" class="btn-link-border form-account-link">
+                                        مشاهده و ویرایش لیست مورد علاقه
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="title-tab-content">آخرین سفارش ها</h1>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="content-section pt-5 pb-5">
+                            @if (ViewBag.Order == null)
+                            {
+                                <div class="icon-empty">
+                                    <i class="now-ui-icons travel_info"></i>
+                                </div>
+                                <h1 class="text-empty">موردی برای نمایش وجود ندارد!</h1>
+                            }
+                            else
+                            {
+                        <table class="table table-bordered table-condensed table-hover table-responsive table-striped ">
+                            <tr class="success">
+                                <th>
+                                    شماره
+                                </th>
+                                <th>
+                                    فاکتور
+                                </th>
+                                <th>
+                                    کوپن تخفیف
+                                </th>
+
+                                <th>
+                                    وضعیت سفارش
+                                </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in ViewBag.Order)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Id
+                                    </td>
+                                    <td>
+                                        @item.FactorNumber
+                                    </td>
+
+
+                                    <td>
+                                        @item.OrderCopon.Name    %@item.OrderCopon.Percent
+                                    </td>
+
+                                    <td>
+                                        @if (item.OrderStatus.Name == "پرداخت نشده")
+                                        {
+                                            <span class="label label-danger">  @item.OrderStatus.Name</span>
+                                        }
+                                        else if (item.OrderStatus.Name == "پرداخت شده")
+                                        {
+                                            <span class="label label-success">  @item.OrderStatus.Name</span>
+                                        }
+                                        else if (item.OrderStatus.Name == "در حال پیگیری")
+                                        {
+                                            <span class="label label-warning">  @item.OrderStatus.Name</span>
+                                        }
+                                        else if (item.OrderStatus.Name == "در حال بررسی")
+                                        {
+                                            <span class="label label-warning">  @item.OrderStatus.Name</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-primary"> @item.OrderStatus.Name</span>
+                                        }
+
+
+
+                                    </td>
+                                    <td>
+                                        @if (item.OrderStatus.Name == "پرداخت نشده")
+                                        {
+                                            <a href="~/Orders/Checkout/@item.Id" style="padding: 18px 80px;
+                                      border-radius: 8px;
+                                      color: #fff;
+                                      text-align: center;
+                                      display: inline-block;
+                                      border: none;
+                                      cursor: pointer;
+                                      position: relative;
+                                      white-space: nowrap;
+                                      line-height: 22px;
+                                      text-decoration: none;
+                                      margin-top: 5px;"
+                                               class="dk-btn-info  pull-right-container">
+                                               تغيير آدرس مقصد
+                                                <i class="now-ui-icons "></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                    <a href="#" style="padding: 18px 80px;
+                                      border-radius: 8px;
+                                      color: #fff;
+                                      text-align: center;
+                                      display: inline-block;
+                                      border: none;
+                                      cursor: pointer;
+                                      position: relative;
+                                      white-space: nowrap;
+                                      line-height: 22px;
+                                      text-decoration: none;
+                                      margin-top: 5px;"
+                                       class="dk-btn-success  pull-right-container">
+                                        غير قابل ويرايش
+                                        <i class="now-ui-icons "></i>
+                                    </a>
+
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <a href="~/orders/CustomerRecipe/@item.Id" style="padding: 18px 80px;
+                                      border-radius: 8px;
+                                      color: #fff;
+                                      text-align: center;
+                                      display: inline-block;
+                                      border: none;
+                                      cursor: pointer;
+                                      position: relative;
+                                      white-space: nowrap;
+                                      line-height: 22px;
+                                      text-decoration: none;
+                                      margin-top: 5px;"
+                                           class="dk-btn-danger  pull-right-container">
+                                            رسید خرید
+                                            <i class="now-ui-icons "></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </table>
+                            }
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-1">
+                <div class="profile-box">
+                    <div class="profile-box-header">
+                        <div class="profile-box-avatar">
+                            <img src="@Url.Action("UserPhotos", "Home" )" alt="">
+                        </div>
+                        <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <!-- Modal Core -->
+                        <div class="modal-share modal-width-custom modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">تغییر نمایه کاربری شما</h4>
+                                    </div>
+                                    @*<div class="modal-body">
+                                        <ul class="profile-avatars default text-center">
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/user.svg"></img>
+                                            </li>
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/avatar-1.svg"></img>
+                                            </li>
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/avatar-2.svg"></img>
+                                            </li>
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/avatar-3.svg"></img>
+                                            </li>
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/avatar-4.svg"></img>
+                                            </li>
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/avatar-5.svg"></img>
+                                            </li>
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/avatar-6.svg"></img>
+                                            </li>
+                                            <li>
+                                                <img class="profile-avatars-item" src="assets/img/svg/avatar-7.svg"></img>
+                                            </li>
+                                        </ul>
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal Core -->
+                    </div>
+                    <div class="profile-box-username">@User.Identity.GetUserName()</div>
+                    <div class="profile-box-tabs">
+
+                        @if (Model.HasPassword)
+                        {
+                            @*@Html.ActionLink("تغيير رمز", "ChangePassword", new { @class = "" })
+                            <i class="now-ui-icons ui-1_lock-circle-open"></i>*@
+
+                            <a href="~/Manage/ChangeProfilePassword" class="profile-box-tab-access profile-box-tab">
+                                <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                تغيير رمز
+                            </a>
+                        }
+
+
+
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="profile-box-tab profile-box-tab--sign-out">
+                            <i class="now-ui-icons media-1_button-power"></i>
+                            خروج از حساب
+                        </a>
+                    </div>
+                </div>
+                <div class="responsive-profile-menu show-md">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-navicon"></i>
+                            حساب کاربری شما
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right text-right">
+                            <a href="~/Manage/Profile" class="dropdown-item ">
+                                <i class="now-ui-icons users_single-02"></i>
+                                پروفایل
+                            </a>
+                            <a href="~/Manage/Profile_Orders" class="dropdown-item">
+                                <i class="now-ui-icons shopping_basket"></i>
+                                سبد خريد من
+                            </a>
+                            @*<a href="profile-orders-return.html" class="dropdown-item">
+                                <i class="now-ui-icons files_single-copy-04"></i>
+                                درخواست مرجوعی
+                            </a>
+                            <a href="profile-favorites.html" class="dropdown-item">
+                                <i class="now-ui-icons ui-2_favourite-28"></i>
+                                لیست علاقمندی ها
+                            </a>*@
+                            <a href="profile-personal-info.html" class="dropdown-item">
+                                <i class="now-ui-icons business_badge"></i>
+                                اطلاعات شخصی
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-menu hidden-md">
+                    <div class="profile-menu-header">حساب کاربری شما</div>
+                    <ul class="profile-menu-items">
+                        <li>
+                            <a href="~/Manage/Profile" >
+                                <i class="now-ui-icons users_single-02"></i>
+                                پروفایل
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Manage/Profile_Orders">
+                                <i class="now-ui-icons shopping_basket"></i>
+                                سبد خريد من
+                            </a>
+                        </li>
+                        @*<li>
+                            <a href="profile-orders-return.html">
+                                <i class="now-ui-icons files_single-copy-04"></i>
+                                درخواست مرجوعی
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile-favorites.html">
+                                <i class="now-ui-icons ui-2_favourite-28"></i>
+                                لیست علاقمندی ها
+                            </a>
+                        </li>*@
+                        <li>
+                            <a href="~/Manage/Profile_Personal_Info">
+                                <i class="now-ui-icons business_badge"></i>
+                                اطلاعات شخصی
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- main -->

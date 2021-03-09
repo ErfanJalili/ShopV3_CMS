@@ -1,0 +1,256 @@
+﻿@model Shop.Models.Order.Order
+@{
+    ViewBag.Title = "PrintRecipe";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <section class="col-lg-12">
+        <div class="box box-primary box-solid">
+            <div class="box-body">
+                <div class="tab-content no-padding">
+                    <div class="col-md-12 ">
+                        <a class="btn btn-success " onclick="goToEdit()">ويرايش سفارش</a>
+                        <a class="btn btn-primary " onclick="goToIndex()">ليست سفارشات</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<div class="box">
+    <h2>سفارش ثبت شده</h2>
+
+
+
+    <table class="table table-bordered table-condensed table-hover table-responsive table-striped ">
+        <tr class="success">
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FactorNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserCompany)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderCopon.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telephone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus.Name)
+            </th>
+
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.FactorNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.UserCompany)
+            </td>
+            <td>
+                @if (ViewBag.Copon.Percent != 0)
+                {
+                  <p>  @Model.TotalPrice (با احتساب کوپن)</p>
+                }
+                else
+                {
+                   @Html.DisplayFor(modelItem => Model.TotalPrice)
+                }
+            </td>
+            <td>
+                @ViewBag.Copon.Name    %@ViewBag.Copon.Percent
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Telephone)
+            </td>
+            <td>
+                @if (ViewBag.Status == "پرداخت نشده")
+                {
+                    <span class="label label-danger"> @ViewBag.Status</span>
+                }
+                else if (ViewBag.Status == "پرداخت شده")
+                {
+                    <span class="label label-success"> @ViewBag.Status</span>
+                }
+                else if (ViewBag.Status == "در حال پیگیری")
+                {
+                    <span class="label label-warning"> @ViewBag.Status</span>
+                }
+                else if (ViewBag.Status == "در حال بررسی")
+                {
+                    <span class="label label-warning"> @ViewBag.Status</span>
+                }
+                else
+                {
+                    <span class="label label-primary"> @ViewBag.Status</span>
+                }
+
+
+
+            </td>
+        </tr>
+
+    </table>
+    @if (ViewBag.Totaly.ToString() != Model.TotalPrice)
+    {
+        <p>   جمع فاكتور شما بدون احتساب كوپن  <strong>@ViewBag.Totaly</strong>   تومان بوده است </p>
+    }
+
+
+
+    <br />
+
+
+    <h2>مقصد</h2>
+
+    <table class="table table-bordered table-condensed table-hover table-responsive table-striped ">
+        <tr class="warning">
+            <th>
+                @Html.DisplayNameFor(model => model.city)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserStreet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.city)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.UserStreet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Mobile)
+            </td>
+        </tr>
+
+    </table>
+
+
+    <div class="box-header">
+
+
+
+        <h2>جزئيات محصول</h2>
+
+        <div class="box-tools">
+
+            <div class="input-group input-group" style="width: 150px;">
+
+                <div class="input-group-btn">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+            <tbody>
+                <tr class="info">
+                    <th>
+                        نام محصول
+                    </th>
+                    <th>
+                        تعداد
+                    </th>
+                    <th>
+                        فی
+                    </th>
+                    <th>
+                        جمع فی
+                    </th>
+                    <th>
+                        ایجاد شده در تاریخ
+                    </th>
+                    <th>
+                        ویرایش شده در تاریخ
+                    </th>
+                </tr>
+
+                @foreach (var item in ViewBag.orderDetails)
+                {
+                    <tr>
+                        <td>
+                            @item.Product.Name
+                        </td>
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>
+                            @item.SinglePrice
+
+                        </td>
+                        <td>
+                            @item.SubTotalPrice
+
+                        </td>
+                        <td>
+                            @item.Created_at
+                        </td>
+                        <td>
+                            @item.Updated_at
+                        </td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <a class="btn btn-warning" href="javascript:window.print()">نسخه چاپی فاکتور</a>
+        <p class="btn btn-primary pull-left">
+            جمع فاكتور :   @Html.DisplayFor(modelItem => Model.TotalPrice)
+        </p>
+
+    </div>
+    <!-- /.box-body -->
+
+</div>
+
+@section scripts
+    {
+    <script>
+        function goToEdit()
+        {
+            location.href = "/orders/Edit/"+@Model.Id;
+        }
+        function goToIndex()
+        {
+            location.href = "/orders/All_Orders";
+        }
+    </script>
+}
+

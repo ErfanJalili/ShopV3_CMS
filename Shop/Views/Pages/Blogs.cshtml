@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Shop.Models.Page.Page>
+@{
+    ViewBag.Title = "Blogs";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+
+<div class="listing default">
+
+    <div class="tab-content default text-center">
+        <div class="tab-pane active" id="related" role="tabpanel" aria-expanded="true">
+            <div class="container no-padding-right">
+                <ul class="row listing-items">
+
+                    @foreach (var item in Model)
+                    {
+                        <li class="col-xl-3 col-lg-4 col-md-6 col-12 no-padding">
+                            <div class="product-box">
+                                <div class="product-seller-details product-seller-details-item-grid">
+                                    <span class="product-main-seller">
+                                        <span class="product-seller-details-label">
+                                            دسته بندی:
+                                        </span>@item.Category.Name
+                                    </span>
+                                    <span class="product-seller-details-badge-container"></span>
+                                </div>
+                                <a class="product-box-img" href="~/pages/blog/@item.Id">
+                                    <img src="@item.ImageUrl" alt="@item.Name">
+                                </a>
+                                <div class="product-box-content">
+                                    <div class="product-box-content-row">
+                                        <div class="product-box-title">
+                                            <a href="#">
+                                                @item.Name
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,358 @@
+﻿@model Shop.Models.Order.Order
+@{
+    ViewBag.Title = "CustomerRecipe";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+    <div class="box">
+
+        <div id="printableArea">
+            <main class="cart-page default" dir="rtl">
+                <div class="container">
+                    <div class="row">
+                        <div style="background:white;" class="cart-page-content col-xl-12 col-lg-12 col-md-12 order-1">
+                            <div class="cart-page-title">
+                                <h1>سفارش ثبت شده</h1>
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                        <tr style="background:#20c997; color:white;">
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Id)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.FactorNumber)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.UserCompany)
+                                            </th>
+
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.TotalPrice)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.OrderCopon.Name)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Telephone)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.OrderStatus.Name)
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.Id)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.FactorNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.UserCompany)
+                                            </td>
+                                            <td>
+                                                @if (ViewBag.Copon.Percent != 0)
+                                                {
+                                                    <p>  @Model.TotalPrice (با احتساب کوپن)</p>
+                                                }
+                                                else
+                                                {
+                                                    @Html.DisplayFor(modelItem => Model.TotalPrice)
+                                                }
+                                            </td>
+                                            <td>
+                                                @ViewBag.Copon.Name    %@ViewBag.Copon.Percent
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.Telephone)
+                                            </td>
+                                            <td>
+                                                @if (ViewBag.Status == "پرداخت نشده")
+                                                {
+                                                    <span style="color:red"> @ViewBag.Status</span>
+                                                }
+                                                else if (ViewBag.Status == "پرداخت شده")
+                                                {
+                                                    <span style="color:green"> @ViewBag.Status</span>
+                                                }
+                                                else if (ViewBag.Status == "در حال پیگیری")
+                                                {
+                                                    <span style="color:deepskyblue"> @ViewBag.Status</span>
+                                                }
+                                                else if (ViewBag.Status == "در حال بررسی")
+                                                {
+                                                    <span style="color:deepskyblue"> @ViewBag.Status</span>
+                                                }
+                                                else
+                                                {
+                                                    <span style="color:red"> @ViewBag.Status</span>
+                                                }
+
+
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            @if (ViewBag.Totaly.ToString() != Model.TotalPrice)
+            {
+                <p>   جمع فاكتور شما بدون احتساب كوپن  <strong>@ViewBag.Totaly</strong>   تومان بوده است </p>
+            }
+
+
+
+
+            <div class="box-header">
+                <div class="box-tools">
+                    <div class="input-group input-group" style="width: 150px;">
+                        <div class="input-group-btn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <main class="cart-page default" dir="rtl">
+                <div class="container">
+                    <div class="row">
+                        <div style="background:white;" class="cart-page-content col-xl-12 col-lg-12 col-md-12 order-1">
+                            <div class="cart-page-title">
+                                <h1>مقصد</h1>
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                        <tr style="background:#ff8d00; color:white;">
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.city)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.State)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.UserStreet)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Code)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Mobile)
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.city)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.State)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.UserStreet)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.Code)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Model.Mobile)
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <div class="box-header">
+                <div class="box-tools">
+                    <div class="input-group input-group" style="width: 150px;">
+                        <div class="input-group-btn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <main class="cart-page default" dir="rtl">
+                <div class="container">
+                    <div class="row">
+                        <div style="background:white;" class="cart-page-content col-xl-12 col-lg-12 col-md-12 order-1">
+                            <div class="cart-page-title">
+                                <h1>جزئيات محصول</h1>
+                            </div>
+                            <div class="table-responsive checkout-content default">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                        <tr style="background:#28a745d9; color:white;">
+                                            <th>
+                                                نام محصول
+                                            </th>
+                                            <th>
+                                                تعداد
+                                            </th>
+                                            <th>
+                                                فی
+                                            </th>
+                                            <th>
+                                                جمع فی
+                                            </th>
+                                            <th>
+                                                ایجاد شده در تاریخ
+                                            </th>
+                                            <th>
+                                                ویرایش شده در تاریخ
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in ViewBag.orderDetails)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Product.Name
+                                                </td>
+                                                <td>
+                                                    @item.Quantity
+                                                </td>
+                                                <td>
+                                                    @item.SinglePrice
+
+                                                </td>
+                                                <td>
+                                                    @item.SubTotalPrice
+
+                                                </td>
+                                                <td>
+                                                    @item.Created_at
+                                                </td>
+                                                <td>
+                                                    @item.Updated_at
+                                                </td>
+
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+            <div class="product-add default">
+                <div class="parent-btn">
+                    <a href="#" style="padding: 18px 80px;
+                  border-radius: 8px;
+
+                  color: #fff;
+                  text-align: center;
+                  display: inline-block;
+                  border: none;
+                  cursor: pointer;
+                  position: relative;
+                  white-space: nowrap;
+                  line-height: 22px;
+                  text-decoration: none;
+                  margin-top: 5px;"
+                       class="dk-btn-info  pull-right-container" onclick="printPageArea('printableArea')">
+                        نسخه چاپی فاکتور
+                        <i class="now-ui-icons "></i>
+                    </a>
+
+
+                    <a href="~/Manage/Profile" class="pull-left-container dk-btn-danger"
+                       style="padding: 18px 80px;
+                  border-radius: 8px;
+
+                  color: #fff;
+                  text-align: center;
+                  display: inline-block;
+                  border: none;
+                  cursor: pointer;
+                  position: relative;
+                  white-space: nowrap;
+                  line-height: 22px;
+                  text-decoration: none;
+                  margin-top: 5px;">
+                        پروفایل من
+                        <i class="now-ui-icons icon-success"></i>
+                    </a>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+  
+@section scripts
+    {
+    <script>
+
+        function printPageArea(areaID) {
+            var printContent = document.getElementById(areaID);
+            var WinPrint = window.open('', '', 'width=900,height=650');
+            WinPrint.document.write(printContent.innerHTML);
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            WinPrint.close();
+        }
+    </script>
+}
+
+
+@*<main class="cart-page default">
+        <div class="container">
+            <div class="row">
+                <div class="cart-page-content col-xl-9 col-lg-8 col-md-12 order-1">
+                    <div class="cart-page-title">
+                        <h1>سبد خرید</h1>
+                    </div>
+                    <div class="table-responsive checkout-content default">
+                        <table class="table">
+                            <tbody>
+                                @foreach (var item in ViewBag.orderDetails)
+                                {
+                                    <tr class="checkout-item">
+                                        <td>
+                                            <button class="checkout-btn-remove"></button>
+                                            <img style="width:100px;height:100px; border-radius:50px" src="@Url.Content(item.Product.ImageUrl)" alt="@item.Product.Name" />
+                                            @item.Product.Name
+                                        </td>
+                                        <td>
+                                            @item.Quantity
+                                        </td>
+                                        <td>
+                                            @item.SinglePrice
+
+                                        </td>
+                                        <td>
+                                            @item.SubTotalPrice
+
+                                        </td>
+
+
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>*@

@@ -1,0 +1,278 @@
+﻿@model PagedList.IPagedList<Shop.Models.Product.Product>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="~/Content/NoProductCss/style.css">
+
+@{
+    ViewBag.Title = "SortBy";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+
+
+<main class="search-page default">
+    <div class="container">
+        <div class="row">
+            <aside class="sidebar-page col-12 col-sm-12 col-md-4 col-lg-3 order-1">
+                <div class="box">
+
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="box-toggle collapse show" data-toggle="collapse" href="#collapseExample0" role="button"
+                                 aria-expanded="true" aria-controls="#collapseExample0">
+                                جستوجوی پیشرفته
+
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div>
+                                <div class="ui-input ui-input--quick-search">
+                                    @using (Html.BeginForm("Sort", "Pages", FormMethod.Get))
+                                    {
+                                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "ui-input-field ui-input-field--cleanable", @placeholder = "نام محصول مورد نظر را بنویسید…" })
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit">جستوجو</button>
+                                        </span>
+                                    }
+                                    <span class="ui-input-cleaner"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="box-toggle" data-toggle="collapse" href="#collapseExample1" role="button"
+                                 aria-expanded="true" aria-controls="collapseExample1">
+                                دسته بندی نتایج
+                                <i class="now-ui-icons arrows-1_minimal-down"></i>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="collapse show" id="collapseExample1">
+                                @*<div class="ui-input ui-input--quick-search">
+                                        @using (Html.BeginForm("Sort", "Home", FormMethod.Get))
+                                        {
+                                            @Html.TextBox("searchCategory", ViewBag.CurrentFilter as string, new { @class = "ui-input-field ui-input-field--cleanable", @placeholder = "نام محصول مورد نظر را بنویسید…" })
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="submit">جستوجو</button>
+                                            </span>
+
+                                        }
+
+                                        <span class="ui-input-cleaner"></span>
+                                    </div>*@
+                                <div class="filter-option">
+
+                                    @foreach (var item in ViewBag.Category)
+                                    {
+                                        <div style="cursor: pointer;">
+
+
+                                            @*<input id="@item.Id" type="checkbox">*@
+
+                                            <label for="@item.Id">
+
+                                                <a href="~/Pages/ByCategory/@item.Id">@item.Name</a>
+                                            </label>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="box-toggle" data-toggle="collapse" href="#collapseExample2" role="button"
+                                 aria-expanded="true" aria-controls="collapseExample2">
+                                برند
+                                <i class="now-ui-icons arrows-1_minimal-down"></i>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="collapse show" id="collapseExample2">
+                                @*<div class="ui-input ui-input--quick-search">
+                                        <input type="text" class="ui-input-field ui-input-field--cleanable"
+                                               placeholder="نام برند مورد نظر را بنویسید…">
+                                        <span class="ui-input-cleaner"></span>
+                                    </div>*@
+                                <div class="filter-option">
+                                    @foreach (var item in ViewBag.Brand)
+                                    {
+                                        <div>
+
+
+                                            @*<input id="@item.Id" type="checkbox">*@
+
+                                            <label for="@item.Id">
+                                                <a href="~/Pages/ByBrand/@item.Id">@item.Name</a>
+                                              
+                                            </label>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-sm-12 col-md-8 col-lg-9 order-2">
+                <div class="breadcrumb-section default">
+                    <ul class="breadcrumb-list">
+                        <li>
+                            <a href="#">
+                                <span>فروشگاه اینترنتی تاپ کالا</span>
+                            </a>
+                        </li>
+                        <li><span>محصولات </span></li>
+                    </ul>
+                </div>
+                <div class="listing default">
+                    <div class="listing-counter">@Model.Count() کالا</div>
+                    <div class="listing-header default">
+                        <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
+                            data-label="مرتب‌سازی بر اساس :">
+                            <li>
+                                @Html.ActionLink("همه", "Sort", new { sortOrder = ViewBag.AllProduct , currentFilter = ViewBag.CurrentFilter })
+                            </li>
+                            <li>
+                                @Html.ActionLink("قیمت", "Sort", new { sortOrder = ViewBag.PriceSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </li>
+                            <li>
+                                @Html.ActionLink("موجودی", "Sort", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </li>
+
+                            @*<li>
+            @Html.ActionLink("مرتبط‌ترین", "Sort", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </li>*@
+
+                        </ul>
+                    </div>
+
+                    @if (Model.Count() != 0)
+                    {
+
+                        <div class="tab-content default text-center">
+                            <div class="tab-pane active" id="related" role="tabpanel" aria-expanded="true">
+                                <div class="container no-padding-right">
+                                    <ul class="row listing-items">
+                                        @foreach (var item in Model)
+                                        {
+                                            <li class="col-xl-3 col-lg-4 col-md-6 col-12 no-padding">
+                                                <div class="product-box">
+                                                    <div class="product-seller-details product-seller-details-item-grid">
+                                                        <span class="product-main-seller">
+                                                            <span class="product-seller-details-label">
+                                                                فروشنده:
+                                                            </span>@item.Brand.Name
+                                                        </span>
+                                                        <span class="product-seller-details-badge-container"></span>
+                                                    </div>
+                                                    <a class="product-box-img" href="~/Pages/SingleProduct/@item.Id">
+                                                        <img src="@Url.Content(@item.ImageUrl)" alt="">
+                                                    </a>
+                                                    @if (item.NumberAvailable != 0)
+                                                    {
+                                                        <div class="product-box-content">
+                                                            <div class="product-box-content-row">
+                                                                <div class="product-box-title">
+                                                                    <a href="" ~/Pages/SingleProduct/@item.Id">
+                                                                    @item.Name
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-box-row product-box-row-price">
+                                                                <div class="price">
+                                                                    <div class="price-value">
+                                                                        <div class="price-value-wrapper">
+                                                                            @item.Price <span class="price-currency">تومان</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                <div class="product-box-content">
+                                                    <div class="product-box-content-row">
+                                                        <div class="product-box-title">
+                                                            <a href="" ~/Pages/SingleProduct/@item.Id">
+                                                            @item.Name
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-box-row product-box-row-price">
+                                                        <div class="price">
+                                                            <div class="price-value">
+                                                                <div class="price-value-wrapper">
+                                                                    <span style="color:red" class="price-currency">ناموجود</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    }
+
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+
+                        <div class="tab-content default text-center">
+                            <div class="tab-pane active" style="background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%);" id="related" role="tabpanel" aria-expanded="true">
+                                <div class="container no-padding-right">
+                                    <ul class="row listing-items">
+                                        <div id="containerrrr">
+                                            <div id="error-boxxxx">
+
+                                                <div class="faceeee2">
+                                                    <div class="eyeeee"></div>
+                                                    <div class="eyeeee riiiight"></div>
+                                                    <div class="mouthhhh sadddd"></div>
+                                                </div>
+                                                <div class="shadowwww moveeee"></div>
+                                                <div class="messageeee"><p class="alert"> نگرد نيست ، گشتم نبود !</p></div>
+
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+
+                </div>
+
+
+                <br />
+                <div class="pager default text-center">
+                    <ul class="pager-items">
+                        <li>
+                            صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+                            @Html.PagedListPager(Model, page => Url.Action("Sort",
+                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

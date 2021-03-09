@@ -1,0 +1,123 @@
+﻿@model Shop.Models.Order.Order
+@{
+    ViewBag.Title = "Address And Payment";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"
+        type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"
+        type="text/javascript"></script>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model=>model.TotalPrice)
+    <div class="wrapper default">
+        <div class="container">
+            <div class="row">
+                <div class="main-content col-12 col-md-8 mx-auto">
+                    <div class="account-box checkout-page">
+                        <a href="#" class="logo">
+                            <img src="~/Content/TopKala/assets/img/logo.png" alt="">
+                        </a>
+                        <div class="account-box-content">
+                            <form class="form-account">
+                                <div class="col-12">
+                                    <div class="checkout-title text-right">مشخصات شما</div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">گیرنده</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.UserCompany, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "نام خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">ایمیل</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "ایمیل خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">کشور</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "کشور خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">شهر</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "شهر خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">شهرستان</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "شهرستان خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">خیابان</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.UserStreet, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "خیابان خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">کوچه</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.UserSuburb, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "کوچه خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">پلاک</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "پلاک خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">تلفن</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "تلفن خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">موبایل</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "موبایل خود را وارد نمایید" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">کد پستی</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "کد پستی خود را وارد نمایید" } })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-account-title">فیش واریزی</div>
+                                    <div class="form-account-row">
+                                        @Html.EditorFor(model => model.PaymentRecipe, new { htmlAttributes = new { @class = "input-field text-right", @placeholder = "فیش واریزی خود را وارد نمایید" } })
+
+                                    </div>
+                                </div>
+
+                                <fieldset>
+                                    <legend>پرداخت</legend>
+                                    <p>
+                                        اگر اشتراک خاصی را ندارید از عبارت :"FREE" استفاده نمایید
+                                    </p>
+                                    <div class="editor-label">
+                                        @Html.Label("کد اشتراک")
+                                    </div>
+                                    <div class="editor-field">
+                                        @Html.TextBox("PromoCode", "FREE", htmlAttributes: new { @class = "input-field text-right", @placeholder = "کد پستی خود را وارد نمایید" })
+                                    </div>
+                                </fieldset>
+                                <div class="col-md-6 " style="    margin-right: 420px;">
+                                    <input class="dk-btn dk-btn-info" type="submit" value="ثبت نهایی" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,97 @@
+﻿@model int
+@{
+    ViewBag.Title = "Checkout Complete";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+}
+
+    <body>
+        <div class="wrapper default shopping-page">
+            <!-- header-shopping -->
+            <header class="header-shopping default">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center pt-2">
+                            <div class="header-shopping-logo default">
+                                <a href="#">
+                                    <img src="assets/img/logo.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <ul class="checkout-steps">
+                                <li>
+                                    <a href="~/Orders/Checkout/@Model" class="active">
+                                        <span>اطلاعات ارسال</span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="shopping-payment.html" class="active">
+                                        <span>پرداخت</span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="~/Checkout/Complete/@Model" class="active">
+                                        <span>اتمام خرید و ارسال</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- header-shopping -->
+            <main class="cart-page default">
+                <div class="container">
+                    <div class="row">
+                        <div class="cart-page-content col-12 order-1">
+                            <section class="page-content default">
+                                <div class="success-checkout text-center default">
+                                    <div class="icon-success">
+                                        <i style="    margin-top: 15px;" class="fa fa-check"></i>
+                                    </div>
+                                    <h1>سفارش <a href="#">@ViewBag.Order.FactorNumber</a>با موفقیت در سیستم ثبت شد.</h1>
+                                    <p>سفارش نهایتا تا یک روز آماده ارسال خواهد شد.</p>
+                                </div>
+                                <div class="order-info default">
+                                    <h3>کد سفارش: <span>@ViewBag.Order.FactorNumber</span></h3>
+                                    <p>
+                                        سفارش شما با موفقیت در سیستم ثبت شد و هم اکنون <span class="badge badge-success">تکمیل شده</span> است.جزئیات این سفارش را می توانید
+                                        با کلیک بر روی دکمه <a href="/Manage/Profile" class="btn-link-border">پیگیری سفارش</a>مشاهده نمایید.
+                                    </p>
+                                    <button onclick='location.href="/Manage/Profile";' type="button" class="btn-primary">
+                                        پیگیری سفارش
+                                    </button>
+                                    <div class="table-responsive default mt-3 mb-3">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">نام تحویل گیرنده : @ViewBag.Order.UserCompany</th>
+                                                    <th scope="col">شماره تماس : @ViewBag.Order.Telephone</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">تعداد سفارش : 1</th>
+                                                    <td>مبلغ کل : @ViewBag.Order.TotalPrice</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">وضعیت پرداخت : @ViewBag.Order.OrderStatus.Name</th>
+                                                    <td>وضعیت سفارش: در انتظار پرداخت</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">آدرس : @ViewBag.Order.Country-@ViewBag.Order.city-@ViewBag.Order.State-@ViewBag.Order.UserStreet-@ViewBag.Order.UserSuburb-@ViewBag.Order.Code</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        </body>
+
+       

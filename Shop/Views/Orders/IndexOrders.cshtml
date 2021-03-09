@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewBag.Title = "IndexOrders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title"> همه سفارشات</h3>
+    </div>
+
+    <hr>
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <!-- Profile Image -->
+                <div class="col-md-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#activity" data-toggle="tab">همه سفارشات</a></li>
+                        </ul>
+
+                        <div class="tab-pane" id="timeline">
+                            <!-- The timeline -->
+                            <ul class="timeline timeline-inverse">
+                                <!-- timeline time label -->
+                                <li class="time-label">
+                                    <span class="bg-red">
+                                        @DateTime.Now
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-edit bg-blue"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> @DateTime.Today</span>
+
+                                        <h3 class="timeline-header">جدول سفارشات</h3>
+
+                                        <div class="timeline-body">
+                                            <div class="form-group">
+                                                <table id="customers" class="table  table table-bordered table-condensed table-striped table-hover">
+
+                                                    <thead>
+                                                        <tr class="success">
+                                                            <th>شماره سفارش</th>
+                                                            <th>نام گیرنده</th>
+                                                            <th>شماره تلفن</th>
+                                                            <th>شماره موبایل</th>
+                                                            <th>ایمیل</th>
+                                                            <th>شهر</th>
+                                                            <th>وضعیت سفارش</th>
+                                                            <th>حذف</th>
+                                                            <th>ویرایش</th>
+                                                            <th>چاپ</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @*@foreach (var customer in Model)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @Html.ActionLink(customer.Name, "Edit", new { id = customer.Id })
+                                                                    </td>
+                                                                    <td>@customer.MembershipType.Name</td>
+                                                                    <td>
+                                                                        <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                                                                    </td>
+                                                                </tr>
+                                                            }*@
+                                                    </tbody>
+                                                </table>
+
+
+
+
+                                                @section scripts
+    {
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            var table = $("#customers").DataTable({
+                                                                ajax: {
+                                                                    url: "/api/orders/",
+                                                                    dataSrc: ""
+                                                                },
+                                                                columns: [
+                                                                    {
+                                                                        data: "factorNumber"
+                                                                    },
+                                                                    {
+                                                                        data: "userCompany"
+                                                                    },
+                                                                    {
+                                                                        data: "telephone"
+                                                                    },
+                                                                    {
+                                                                        data: "mobile"
+                                                                    },
+                                                                    {
+                                                                        data: "email"
+                                                                    },
+                                                                    {
+                                                                        data: "city"
+                                                                    },
+                                                                    {
+                                                                        data: "orderStatus.name",
+                                                                        render: function (data) {
+                                                                            if (data == "پرداخت شده")
+                                                                            {
+                                                                                return "<span class='label label-success' >" + data + "</span>";
+                                                                            } else if (data == "پرداخت نشده")
+                                                                            {
+                                                                                return "<span class='label label-danger' >" + data + "</span>";
+                                                                            }
+                                                                            else if (data == "پرداخت شده")
+                                                                            {
+                                                                                 return "<span class='label label-success' >" + data + "</span>";
+                                                                               
+                                                                            }
+                                                                            else if (data == "در حال پیگیری")
+                                                                            {
+                                                                                 return "<span class='label label-warning' >" + data + "</span>";
+
+                                                                                
+                                                                            }
+                                                                            else if (data == "در حال بررسی")
+                                                                            {
+                                                                                 return "<span class='label label-warning' >" + data + "</span>";
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                 return "<span class='label label-primary' >" + data + "</span>";
+
+                                                                               
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: "id",
+                                                                        render: function (data) {
+                                                                            return "<button class='btn btn-danger fa fa-trash js-delete' data-customer-id=" + data + "></button>";
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: "id",
+                                                                        render: function (data) {
+                                                                            return "<a class='btn btn-primary fa fa-edit' href='/orders/edit/" + data + "'></a>";
+                                                                        }
+                                                                    },
+                                                                     {
+                                                                        data: "id",
+                                                                        render: function (data) {
+                                                                            return "<a class='btn btn-warning fa fa-print' href='/orders/PrintRecipe/" + data + "'></a>";
+                                                                        }
+                                                                    }
+                                                                ]
+
+                                                            });
+                                                            $("#customers").on("click", ".js-delete", function () {
+                                                                var button = $(this);
+                                                                bootbox.confirm("از حذف این مورد اطمینان دارید؟", function (result) {
+                                                                    if (result) {
+                                                                        $.ajax({
+                                                                            url: "/api/orders/" + button.attr("data-customer-id"),
+                                                                            method: "DELETE",
+                                                                            success: function () {
+                                                                                table.row(button.parents("tr")).remove().draw();
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+
+                                                            });
+
+                                                        });
+                                                    </script>
+                                                }
+
+
+                                            </div>
+                                            <div>
+                                                <a class="btn btn-primary" href="~/Orders/NewOrders">افزودن </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+
+
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+</div>
+

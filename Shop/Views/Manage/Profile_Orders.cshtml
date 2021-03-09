@@ -1,0 +1,210 @@
+﻿@model Shop.Models.IndexViewModel
+
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Profile_Orders";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+<!-- main -->
+<main class="profile-user-page default">
+    <div class="container">
+        <div class="row">
+            <div class="profile-page col-xl-9 col-lg-8 col-md-12 order-2">
+                <div class="cart-page-title">
+                    <h1>  @ViewBag.CartItemCount سبد خرید</h1>
+                   
+                </div>
+                <div class="table-responsive checkout-content default">
+                    <table class="table">
+                        <tbody>
+                            @if (ViewBag.CartItemCount != 0)
+                            {
+                                foreach (var item in ViewBag.Cart.CartItems)
+                                {
+                                    <tr class="checkout-item" id="row-@item.RecordId">
+                                        <td>
+                                            <img style="width:50px;height:50px;" src="@Url.Content(item.Album.ImageUrl)">
+                                            <button class="checkout-btn-remove"></button>
+                                            <a href="#" id="RemoveLink" class="RemoveLink checkout-btn-remove"
+                                               data-id="@item.RecordId">
+
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <h3 class="checkout-title">
+                                                <a class="link" href="~/Pages/SingleProduct/@item.AlbumId">@item.Album.Name</a>
+
+                                            </h3>
+                                        </td>
+                                        <td id="item-count-@item.RecordId">@item.Count عدد</td>
+                                        <td> @item.Album.Price تومان</td>
+                                    </tr>
+                                }
+                            } else
+                            {
+                                <tr class="checkout-item" >
+                                    <td>
+                                       خالي
+
+                                      
+                                    </td>
+                                    </tr>
+                                    }
+                            </tbody>
+                    </table>
+
+                </div>
+                <div class="table-responsive checkout-content default">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="parent-btn ">
+
+                                   
+                                    <a class="dk-btn dk-btn-success" href="~/ShoppingCart">ثبت نهایی  <i class="now-ui-icons shopping_tag-content"></i></a>
+                                </div>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <div id="update-message">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="profile-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-1">
+                <div class="profile-box">
+                    <div class="profile-box-header">
+                        <div class="profile-box-avatar">
+                            <img src="@Url.Action("UserPhotos", "Home" )" alt="">
+                        </div>
+                        <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+
+                    </div>
+                    <div class="profile-box-username">@User.Identity.GetUserName()</div>
+                    <div class="profile-box-tabs">
+
+                        @if (Model.HasPassword)
+                        {
+                            @*@Html.ActionLink("تغيير رمز", "ChangePassword", new { @class = "" })
+                                <i class="now-ui-icons ui-1_lock-circle-open"></i>*@
+
+                            <a href="~/Manage/ChangeProfilePassword" class="profile-box-tab-access profile-box-tab">
+                                <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                تغيير رمز
+                            </a>
+                        }
+
+
+
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="profile-box-tab profile-box-tab--sign-out">
+                            <i class="now-ui-icons media-1_button-power"></i>
+                            خروج از حساب
+                        </a>
+                    </div>
+                </div>
+                <div class="responsive-profile-menu show-md">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-navicon"></i>
+                            حساب کاربری شما
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right text-right">
+                            <a href="~/Manage/Profile" class="dropdown-item ">
+                                <i class="now-ui-icons users_single-02"></i>
+                                پروفایل
+                            </a>
+                            <a href="~/Manage/Profile_Orders" class="dropdown-item">
+                                <i class="now-ui-icons shopping_basket"></i>
+                                سبد خريد من
+                            </a>
+                            <a href="profile-orders-return.html" class="dropdown-item">
+                                <i class="now-ui-icons files_single-copy-04"></i>
+                                درخواست مرجوعی
+                            </a>
+                            <a href="profile-favorites.html" class="dropdown-item">
+                                <i class="now-ui-icons ui-2_favourite-28"></i>
+                                لیست علاقمندی ها
+                            </a>
+                            <a href="profile-personal-info.html" class="dropdown-item">
+                                <i class="now-ui-icons business_badge"></i>
+                                اطلاعات شخصی
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-menu hidden-md">
+                    <div class="profile-menu-header">حساب کاربری شما</div>
+                    <ul class="profile-menu-items">
+                        <li>
+                            <a href="~/Manage/Profile">
+                                <i class="now-ui-icons users_single-02"></i>
+                                پروفایل
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Manage/Profile_Orders">
+                                <i class="now-ui-icons shopping_basket"></i>
+                                سبد خريد من
+                            </a>
+                        </li>
+                        @*<li>
+                                <a href="profile-orders-return.html">
+                                    <i class="now-ui-icons files_single-copy-04"></i>
+                                    درخواست مرجوعی
+                                </a>
+                            </li>
+                            <li>
+                                <a href="profile-favorites.html">
+                                    <i class="now-ui-icons ui-2_favourite-28"></i>
+                                    لیست علاقمندی ها
+                                </a>
+                            </li>*@
+                        <li>
+                            <a href="~/Manage/Profile_Personal_Info">
+                                <i class="now-ui-icons business_badge"></i>
+                                اطلاعات شخصی
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- main -->
+
+@section scripts{
+    <script src="~/Content/TopKala/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            // Document.ready -> link up remove event handler
+            $(".RemoveLink").click(function () {
+                // Get the id from the link
+                var recordToDelete = $(this).attr("data-id");
+                if (recordToDelete != '') {
+                    // Perform the ajax post
+                    $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
+                        function (data) {
+                            // Successful requests get here
+                            // Update the page elements
+                            if (data.ItemCount == 0) {
+                                $('#row-' + data.DeleteId).fadeOut('slow');
+                            } else {
+                                $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                            }
+                            $('#cart-total').text(data.CartTotal);
+                            $('#update-message').text(data.Message);
+                            $('#cart-status').text('Cart (' + data.CartCount + ')');
+                        });
+                }
+            });
+        });
+    </script>
+}

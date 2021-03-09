@@ -1,0 +1,159 @@
+﻿@*@model IEnumerable<Shop.ViewModels.ProductFormViewModel>*@
+@{
+    ViewBag.Title = "IndexProducts";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title"> همه برگه ها</h3>
+    </div>
+
+    <hr>
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <!-- Profile Image -->
+                <div class="col-md-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#activity" data-toggle="tab">همه برگه ها</a></li>
+                        </ul>
+
+                        <div class="tab-pane" id="timeline">
+                            <!-- The timeline -->
+                            <ul class="timeline timeline-inverse">
+                                <!-- timeline time label -->
+                                <li class="time-label">
+                                    <span class="bg-red">
+                                        @DateTime.Now
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-edit bg-blue"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> @DateTime.Today</span>
+
+                                        <h3 class="timeline-header">جدول برگه ها</h3>
+
+                                        <div class="timeline-body">
+                                            <div class="form-group">
+                                                <table id="customers" class="table  table table-bordered table-condensed table-striped table-hover">
+
+                                                    <thead>
+                                                        <tr class="success">
+
+                                                            <th>تصویر </th>
+                                                            <th>عنوان</th>
+                                                            <th>حذف</th>
+                                                            <th>ویرایش</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @*@foreach (var customer in Model)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @Html.ActionLink(customer.Name, "Edit", new { id = customer.Id })
+                                                                    </td>
+                                                                    <td>@customer.MembershipType.Name</td>
+                                                                    <td>
+                                                                        <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                                                                    </td>
+                                                                </tr>
+                                                            }*@
+                                                    </tbody>
+                                                </table>
+
+
+
+
+                                                @section scripts
+    {
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            var table = $("#customers").DataTable({
+                                                                ajax: {
+                                                                    url: "/api/pages",
+                                                                    dataSrc: ""
+                                                                },
+                                                                columns: [
+                                                                    {
+                                                                        data: "imageUrl",
+                                                                        render: function (data) {
+                                                                            return "<img style='width:50px;height:50px;' src='" + data + "'>"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: "name"
+                                                                    },
+                                                                    {
+                                                                        data: "id",
+                                                                        render: function (data) {
+                                                                            return "<button class='btn btn-danger fa fa-trash js-delete' data-customer-id=" + data + "></button>";
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: "id",
+                                                                        render: function (data) {
+                                                                            return "<a class='btn btn-primary fa fa-edit' href='/pages/edit/" + data + "'></a>";
+                                                                        }
+                                                                    }
+                                                                ]
+
+                                                            });
+                                                            $("#customers").on("click", ".js-delete", function () {
+                                                                var button = $(this);
+                                                                bootbox.confirm("از حذف این مورد اطمینان دارید؟", function (result) {
+                                                                    if (result) {
+                                                                        $.ajax({
+                                                                            url: "/api/pages/" + button.attr("data-customer-id"),
+                                                                            method: "DELETE",
+                                                                            success: function () {
+                                                                                table.row(button.parents("tr")).remove().draw();
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+
+                                                            });
+
+                                                        });
+                                                    </script>
+                                                }
+
+
+                                            </div>
+                                            <div>
+                                                <a href="~/Pages/Index"><button class="btn btn-primary">افزودن </button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+
+
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+</div>
+

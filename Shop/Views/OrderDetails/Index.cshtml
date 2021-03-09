@@ -1,0 +1,317 @@
+﻿@model IEnumerable<Shop.Models.Order.OrderDetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@*<h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.FactorNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SinglePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubTotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created_at)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Updated_at)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.FactorNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SinglePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created_at)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated_at)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title"> همه سفارشات محصولات</h3>
+    </div>
+
+    <hr>
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <!-- Profile Image -->
+                <div class="col-md-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#activity" data-toggle="tab">همه سفارشات</a></li>
+                        </ul>
+
+                        <div class="tab-pane" id="timeline">
+                            <!-- The timeline -->
+                            <ul class="timeline timeline-inverse">
+                                <!-- timeline time label -->
+                                <li class="time-label">
+                                    <span class="bg-red">
+                                        @DateTime.Now
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-edit bg-blue"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> @DateTime.Today</span>
+
+                                        <h3 class="timeline-header">جدول جزئيات سفارشات</h3>
+
+                                        <div class="timeline-body">
+                                            <div class="form-group">
+                                                <table id="customers" class="table  table table-bordered table-condensed table-striped table-hover">
+
+                                                    <thead>
+                                                        <tr class="success">
+                                                            <th> @Html.DisplayNameFor(model => model.Order.FactorNumber)</th>
+                                                            <th>@Html.DisplayNameFor(model => model.Product.Name)</th>
+                                                            <th> @Html.DisplayNameFor(model => model.Quantity)</th>
+                                                            <th> @Html.DisplayNameFor(model => model.SinglePrice)</th>
+                                                            <th>  @Html.DisplayNameFor(model => model.SubTotalPrice)</th>
+                                                            <th> @Html.DisplayNameFor(model => model.Created_at)</th>
+                                                            <th>@Html.DisplayNameFor(model => model.Updated_at)</th>
+                                                            <th>حذف</th>
+                                                            <th>ویرایش</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @*@foreach (var customer in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(customer.Name, "Edit", new { id = customer.Id })
+                        </td>
+                        <td>@customer.MembershipType.Name</td>
+                        <td>
+                            <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                        </td>
+                    </tr>
+                }*@
+                                                    </tbody>
+                                                </table>
+
+
+
+                                                @section scripts
+    {
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            var table = $("#customers").DataTable({
+                                                                ajax: {
+                                                                    url: "/api/OrderDetails",
+                                                                    dataSrc: ""
+                                                                },
+                                                                columns: [
+                                                                    {
+                                                                        data: "factorName",
+                                                                        render: function (data, type, Name) {
+                                                                            return "<a href='/OrderDetails/edit/" + Name.id + "'>" + data + "</a>";
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: "productName"
+                                                                    },
+                                                                    {
+                                                                        data: "quantity"
+                                                                    },
+                                                                    {
+                                                                        data: "singlePrice"
+                                                                    },
+                                                                    {
+                                                                        data: "totalPrice"
+                                                                    },
+                                                                    {
+                                                                        data: "created",
+
+                                                                    },
+                                                                    {
+                                                                        data: "updated",
+
+                                                                    },
+                                                                    {
+                                                                        data: "id",
+                                                                        render: function (data) {
+                                                                            return "<button class='btn btn-danger fa fa-trash js-delete' data-customer-id=" + data + "></button>";
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: "id",
+                                                                        render: function (data) {
+                                                                            return "<a class='btn btn-primary fa fa-edit' href='/orderDetails/edit/" + data + "'></a>";
+                                                                        }
+                                                                    }
+                                                                ]
+
+                                                            });
+                                                            $("#customers").on("click", ".js-delete", function () {
+                                                                var button = $(this);
+                                                                bootbox.confirm("از حذف این مورد اطمینان دارید؟", function (result) {
+                                                                    if (result) {
+                                                                        $.ajax({
+                                                                            url: "/api/orderDetails/" + button.attr("data-customer-id"),
+                                                                            method: "DELETE",
+                                                                            success: function () {
+                                                                                table.row(button.parents("tr")).remove().draw();
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+
+                                                            });
+
+                                                        });
+
+                                                       
+                                                    </script>
+                                                }
+
+
+
+
+                                            </div>
+                                            <div>
+                                                <a class="btn btn-primary" href="~/OrderDetails/Create">افزودن </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+
+
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+</div>
+
+
+
+@*
+        @section scripts
+        {
+        <script>
+            $(document).ready(function () {
+                var table = $("#OrderData").DataTable({
+                    ajax: {
+                        url: "/api/orderDetails/",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "id"
+                        },
+                        {
+                            data: "id"
+                        },
+                        {
+                            data: "id"
+                        },
+                        {
+                            data: "id"
+                        },
+                        {
+                            data: "id"
+                        },
+                        {
+                            data: "id"
+                        },
+                        {
+                            data: "id"
+                        },
+
+                        {
+                            data: "id",
+                            render: function (data) {
+                                return "<button class='btn btn-danger fa fa-trash js-delete' data-customer-id=" + data + "></button>";
+                            }
+                        },
+                        {
+                            data: "id",
+                            render: function (data) {
+                                return "<a class='btn btn-primary fa fa-edit' href='/orderDetails/edit/" + data + "'></a>";
+                            }
+                        }
+                    ]
+
+                });
+                $("#OrderData").on("click", ".js-delete", function () {
+                    var button = $(this);
+                    bootbox.confirm("از حذف این مورد اطمینان دارید؟", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/api/orderDetails/" + button.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                }
+                            });
+                        }
+                    });
+
+                });
+
+            });
+        </script>
+    }
+*@

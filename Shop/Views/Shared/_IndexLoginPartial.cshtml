@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNet.Identity
+@if (User.Identity.GetUserId() != null)
+{
+    using (Html.BeginForm("", "", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left", action = "/Account/LogOff" }))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="user-login dropdown">
+
+        <a href="#" style="    background-color: #00bfd6;color:white;margin-top:20px;" class="btn btn btn-primary dropdown-toggle" data-toggle="dropdown"
+           id="navbarDropdownMenuLink1">
+           پروفایل | خروج  
+        </a>
+
+        <ul style="margin-top:20px;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+            <div class="dropdown-item">
+                <a href="~/Manage/Index" class="btn btn-info">ورود به پنل مدیریت</a>
+            </div>
+            <div class="dropdown-item font-weight-bold">
+                <span>آیا تمایل دارید از حسابتان خارج شوید؟</span>  <a href="javascript:document.getElementById('logoutForm').submit()">خروج</a>
+            </div>
+        </ul>
+        @*@Html.ActionLink("سلام " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+        @*<a href="~/Manage/Index">پروفايل</a>
+
+        <a href="javascript:document.getElementById('logoutForm').submit()">خروج</a>*@
+
+    </div>
+    }
+}
+else
+{
+<div class="col-md-12 col-sm-12">
+    @Html.ActionLink("ثبت نام", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-info ", @style = "float: right;width: 200px;text-align: center;position: relative;margin-top: 2px;" })
+    @Html.ActionLink("ورود", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary  hvr-sweep-to-left", @style = "width: 200px;text-align: center;position: relative;margin-top: 2px;    background-color: #00bfd6;" })
+    @Html.ActionLink("سبد خرید", "Index", "ShoppingCart", routeValues: null, htmlAttributes: new {  @class = "btn btn-gray  ", @style = "width: 100px;text-align: center;position: relative;margin-top: 2px;   background-color: #ef5661; " })
+   
+        
+   
+    <ul class="dropdown-menu  " aria-labelledby="navbarDropdownMenuLink1">
+        <div class="dropdown-item">
+            <a href="~/Dashbourds/Index" class="btn  btn-info ">ورود به پنل مدیریت</a>
+        </div>
+        <div class="dropdown-item font-weight-bold">
+            <span>کاربر جدید هستید؟</span>  @Html.ActionLink("ثبت نام", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </div>
+    </ul>
+</div>
+
+
+}
+

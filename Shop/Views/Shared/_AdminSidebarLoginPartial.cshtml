@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    
+
+    @Html.ActionLink(User.Identity.GetUserName(), "", "", routeValues: null, htmlAttributes: new { title = "Manage", action = "/Manage/Index" })
+
+}
+
+
+
+

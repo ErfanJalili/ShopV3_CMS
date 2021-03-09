@@ -1,0 +1,140 @@
+﻿@model Shop.Models.Order.OrderDetail
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-9">
+
+            <!-- Profile Image -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab">فرم جزئیات فاکتور </a></li>
+                    </ul>
+
+                    <div class="tab-pane" id="timeline">
+                        <!-- The timeline -->
+                        <ul class="timeline timeline-inverse">
+                            <!-- timeline time label -->
+                            <li class="time-label">
+                                <span class="bg-red">
+                                    @DateTime.Now
+                                </span>
+                            </li>
+                            <!-- /.timeline-label -->
+                            <!-- timeline item -->
+                            <li>
+                                <i class="fa fa-edit bg-blue"></i>
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> @DateTime.Today</span>
+
+                                    <h3 class="timeline-header"> جزئیات فاکتور</h3>
+
+                                    <div class="timeline-body">
+                                        <div class="form-group">
+                                            <div>
+                                                <a class="btn btn-primary" href="~/orderDetails/Index">بازگشت به لیست</a>
+                                            </div>
+
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+
+                                                <div class="form-horizontal">
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    @Html.HiddenFor(model => model.Id)
+                                                    @Html.HiddenFor(model => model.Created_at)
+                                                    <hr />
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    <div class="form-group">
+                                                        @Html.Label("شماره فاکتور", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        <div class="col-md-10">
+                                                            @Html.DropDownList("OrderId", null, htmlAttributes: new { @class = "form-control js-example-basic-single " })
+                                                            @Html.ValidationMessageFor(model => model.OrderId, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        @Html.Label("محصول", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        <div class="col-md-10">
+                                                            @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "form-control js-example-basic-single" })
+                                                            @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        <div class="col-md-10">
+                                                            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.SinglePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        <div class="col-md-10">
+                                                            @Html.EditorFor(model => model.SinglePrice, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.SinglePrice, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-10">
+                                                            <input type="submit" value="ثبت وضعيت" class="btn btn-success" />
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            }
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+    {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+                dir: "rtl"
+            });
+
+
+        });
+
+    </script>
+
+
+
+}

@@ -1,0 +1,714 @@
+﻿@model IEnumerable<Shop.Models.Product.Product>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+
+
+<div class="container">
+    <!-- banner -->
+    <div class="row banner-ads">
+        <div class="col-12">
+            <section class="banner">
+                <a href="#">
+                    <img src="~/Content/TopKala/assets/img/banner/banner.jpg" alt="">
+                </a>
+            </section>
+        </div>
+    </div>
+    <!-- banner -->
+    <div class="row">
+        <aside class="sidebar col-12 col-lg-3 order-2 order-lg-1">
+            <div class="sidebar-inner default">
+                <div class="widget-banner widget card">
+                    <a href="#" target="_top">
+                        <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/1455.jpg" alt="">
+                    </a>
+                </div>
+                <div class="widget-services widget card">
+                    <div class="row">
+                        <div class="feature-item col-12">
+                            <a href="#" target="_blank">
+                                <img src="~/Content/TopKala/assets/img/svg/return-policy.svg">
+                            </a>
+                            <p>ضمانت برگشت</p>
+                        </div>
+                        <div class="feature-item col-6">
+                            <a href="#" target="_blank">
+                                <img src="~/Content/TopKala/assets/img/svg/payment-terms.svg">
+                            </a>
+                            <p>پرداخت درمحل</p>
+                        </div>
+                        <div class="feature-item col-6">
+                            <a href="#" target="_blank">
+                                <img src="~/Content/TopKala/assets/img/svg/delivery.svg">
+                            </a>
+                            <p>تحویل اکسپرس</p>
+                        </div>
+                        <div class="feature-item col-6">
+                            <a href="#" target="_blank">
+                                <img src="~/Content/TopKala/assets/img/svg/origin-guarantee.svg">
+                            </a>
+                            <p>تضمین بهترین قیمت</p>
+                        </div>
+                        <div class="feature-item col-6">
+                            <a href="#" target="_blank">
+                                <img src="~/Content/TopKala/assets/img/svg/contact-us.svg">
+                            </a>
+                            <p>پشتیبانی 24 ساعته</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-suggestion widget card">
+                    <header class="card-header">
+                        <h3 class="card-title">پیشنهاد لحظه ای</h3>
+                    </header>
+                    <div id="progressBar">
+                        <div class="slide-progress"></div>
+                    </div>
+                    <div id="suggestion-slider" class="owl-carousel owl-theme">
+
+                        @foreach (var item in ViewBag.SuggestionSlider)
+                        {
+                            <div class="item">
+                                <a href="~/Pages/SingleProduct/@item.Id">
+                                    <img src="@Url.Content(item.ImageUrl)" class="w-100" alt="">
+                                </a>
+                                <h3 class="product-title">
+                                    <a href="#"> @item.Name </a>
+                                </h3>
+                                <div class="price">
+                                    <span class="amount">@item.OffPrice<span>تومان</span></span>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="widget-banner widget card">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/1000001422.jpg" alt="">
+                    </a>
+                </div>
+                <div class="widget-banner widget card">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/side-banner-01.jpeg" alt="">
+                    </a>
+                </div>
+                <div class="widget-banner widget card">
+                    <a href="#" target="_top">
+                        <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/1000001322.jpg" alt="">
+                    </a>
+                </div>
+                <div class="widget-banner widget card">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/1000001442.jpg" alt="">
+                    </a>
+                </div>
+                <div class="widget-banner widget card">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid"
+                             src="~/Content/TopKala/assets/img/banner/8d546388-29d7-4733-871f-2d84a3012cc227_21_1_6.jpeg"
+                             alt="">
+                    </a>
+                </div>
+                <div class="widget-banner widget card">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/1000001422.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </aside>
+        <div class="col-12 col-lg-9 order-1 order-lg-2">
+            <section id="main-slider" class="carousel slide carousel-fade card" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @{ int b = 0;}
+
+                    @foreach (var item in ViewBag.SlideShow)
+                    {
+
+
+                        if (b == 0)
+                        {
+                            <li data-target="#main-slider" data-slide-to="@b" class="active"></li>
+
+                        }
+                        else
+                        {
+                            <li data-target="#main-slider" data-slide-to="@b"></li>
+
+                        }
+
+                        b = b + 1;
+
+
+                    }
+
+                </ol>
+                <div class="carousel-inner">
+                    @{ int z = 0;}
+                    @foreach (var item in ViewBag.SlideShow)
+                    {
+                        if (z == 0)
+                        {
+                            <div class="carousel-item active" data-slide-to="@z">
+                                <a class="d-block" href="#">
+                                    <img src="@Url.Content(item.SliderImageUrl)"
+                                         class="d-block w-100" alt="">
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="carousel-item " data-slide-to="@z">
+                                <a class="d-block" href="#">
+                                    <img src="@Url.Content(item.SliderImageUrl)"
+                                         class="d-block w-100" alt="">
+                                </a>
+                            </div>
+                        }
+                        z = z + 1;
+                    }
+
+
+                    @*<div class="carousel-item active">
+                            <a class="d-block" href="#">
+                                <img src="~/Content/TopKala/assets/img/slider/22f48d8e-6a8f-431c-985d-76ab0e1e59405_21_1_1.jpg"
+                                     class="d-block w-100" alt="">
+                            </a>
+                        </div>
+
+
+                        @foreach (var item in  ViewBag.SlideShow)
+                        {
+
+                            <div class="carousel-item">
+                                <a class="d-block" href="#">
+                                    <img src="@Url.Content(item.SliderImageUrl)"
+                                         class="d-block w-100" alt="">
+                                </a>
+                            </div>
+
+                        }*@
+
+                </div>
+                <a class="carousel-control-prev" href="#main-slider" role="button" data-slide="prev">
+                    <i class="now-ui-icons arrows-1_minimal-right"></i>
+                </a>
+                <a class="carousel-control-next" href="#main-slider" data-slide="next">
+                    <i class="now-ui-icons arrows-1_minimal-left"></i>
+                </a>
+            </section>
+
+
+
+            <section id="amazing-slider" class="carousel slide carousel-fade card" data-ride="carousel">
+                <div class="row m-0">
+                    <ol class="carousel-indicators pr-0 d-flex flex-column col-lg-3">
+
+                        @{ int a = 0;}
+
+                        @foreach (var item in ViewBag.SpecialOffer)
+                        {
+
+
+                            if (a == 0)
+                            {
+                                <li class="active" data-target="#amazing-slider" data-slide-to="@a">
+                                    <span>@item.Name</span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="" data-target="#amazing-slider" data-slide-to="@a">
+                                    <span>@item.Name</span>
+                                </li>
+                            }
+
+                            a = a + 1;
+
+
+                        }
+                        <li class="view-all">
+                            <a href="#" class="btn btn-primary btn-block hvr-sweep-to-left">
+                                <i class="fa fa-arrow-left"></i>مشاهده همه شگفت انگیزها
+                            </a>
+                        </li>
+                    </ol>
+                    <div class="carousel-inner p-0 col-12 col-lg-9">
+                        <img class="amazing-title" src="~/Content/TopKala/assets/img/amazing-slider/amazing-title-01.png"
+                             alt="">
+                        @foreach (var item in ViewBag.SpecialOffer)
+                        {
+                            <div class="carousel-item">
+                                <div class="row m-0">
+                                    <div class="right-col col-5 d-flex align-items-center">
+                                        <a class="w-100 text-center" href="~/Pages/SingleProduct/@item.Id">
+                                            <img src="@Url.Content(item.ImageUrl)"
+                                                 class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="left-col col-7">
+                                        <div class="price">
+                                            <del><span>@item.Price<span>تومان</span></span></del>
+                                            <ins><span>@item.OffPrice<span>تومان</span></span></ins>
+                                            <span class="discount-percent">@((@item.Price) - (@item.OffPrice))  تخفیف</span>
+                                        </div>
+                                        <h2 class="product-title">
+                                            <a href="#">  @item.Name </a>
+                                        </h2>
+                                        <ul class="list-group">
+                                            <li class="list-group-item">@item.ShortDescription</li>
+
+                                        </ul>
+                                        <hr>
+                                        <div class="countdown-timer" countdown data-date="05 02 2019 20:20:22">
+                                            <span data-days>0</span>:
+                                            <span data-hours>0</span>:
+                                            <span data-minutes>0</span>:
+                                            <span data-seconds>0</span>
+
+                                            <span>@((@item.OffStart) - (@item.OffEnd))</span>
+                                        </div>
+                                        <div class="timer-title">زمان باقی مانده تا پایان سفارش</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="carousel-item active">
+                            <div class="row m-0">
+                                <div class="right-col col-5 d-flex align-items-center">
+                                    <a class="w-100 text-center" href="#">
+                                        <img src="~/GalleryImages/3b05fd4b-78bb-4c11-8111-d0da022e9240.jpg"
+                                             class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="left-col col-7">
+                                    <div class="price">
+
+                                        <ins><span>تخفیف های امروز ایران لوسر<span>OFF%</span></span></ins>
+
+                                    </div>
+                                    <h2 class="product-title">
+                                        <a href="#"> در صورت خرید آنلاین 100 امتیاز جایزه بگیرید و شانس خود را در قرعه کشی یک دستگاه خودرو افزایش دهید.  </a>
+                                    </h2>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">نفر اول: یک دستگاه خودروی 206</li>
+                                        <li class="list-group-item">نفر دوم: یک دستگاه گوشی آیفون 11 </li>
+                                        <li class="list-group-item">نفر سوم: بن تخفیف یکساله ایران لوسر </li>
+                                    </ul>
+                                    <hr>
+                                    <div class="countdown-timer" countdown data-date="05 02 2019 20:20:22">
+                                        <span data-days>0</span>:
+                                        <span data-hours>0</span>:
+                                        <span data-minutes>0</span>:
+                                        <span data-seconds>0</span>
+                                    </div>
+                                    <div class="timer-title">زمان باقی مانده تا پایان سفارش</div>
+                                </div>
+                            </div>
+                        </div>
+                        @foreach (var item in ViewBag.SpecialOffer)
+                        {
+                            <div class="carousel-item">
+                                <div class="row m-0">
+                                    <div class="right-col col-5 d-flex align-items-center">
+                                        <a class="w-100 text-center" href="#">
+                                            <img src="@Url.Content(item.ImageUrl)"
+                                                 class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="left-col col-7">
+                                        <div class="price">
+                                            <del><span>@item.Price<span>تومان</span></span></del>
+                                            <ins><span>@item.OffPrice<span>تومان</span></span></ins>
+                                            <span class="discount-percent">@((@item.Price) - (@item.OffPrice))  تخفیف</span>
+                                        </div>
+                                        <h2 class="product-title">
+                                            <a href="#">  @item.Name  </a>
+                                        </h2>
+                                        <ul class="list-group">
+                                            <li class="list-group-item">@item.ShortDescription</li>
+
+                                        </ul>
+                                        <hr>
+                                        <div class="countdown-timer" countdown data-date="05 02 2019 20:20:22">
+                                            <span data-days>0</span>:
+                                            <span data-hours>0</span>:
+                                            <span data-minutes>0</span>:
+                                            <span data-seconds>0</span>
+                                            <span>@((@item.OffStart) - (@item.OffEnd))</span>
+                                        </div>
+                                        <div class="timer-title">زمان باقی مانده تا پایان سفارش</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </section>
+            <div class="row" id="amazing-slider-responsive">
+                <div class="col-12">
+                    <div class="widget widget-product card">
+                        <header class="card-header">
+                            <img src="~/Content/TopKala/assets/img/amazing-slider/amazing-title-01.png" width="150px" alt="">
+                            <a href="#" class="view-all">مشاهده همه</a>
+                        </header>
+                        <div class="product-carousel owl-carousel owl-theme">
+
+                            @foreach (var item in ViewBag.SpecialOffer)
+                            {
+                                <div class="item">
+                                    <a href="#">
+                                        <img src="@Url.Content(item.ImageUrl)"
+                                             class="img-fluid" alt="">
+                                    </a>
+                                    <h2 class="post-title">
+                                        <a href="#"> @item.Name </a>
+                                    </h2>
+                                    <div class="price">
+                                        <ins><span>@item.OffPrice<span>تومان</span></span></ins>
+                                    </div>
+                                    <hr>
+
+                                    <div class="countdown-timer" countdown data-date="@item.OffEnd">
+                                        <span data-days>0</span>:
+                                        <span data-hours>0</span>:
+                                        <span data-minutes>0</span>:
+                                        <span data-seconds>0</span>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row banner-ads">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6 col-lg-3">
+                            <div class="widget-banner card">
+                                <a href="#" target="_blank">
+                                    <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/banner-1.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="widget-banner card">
+                                <a href="#" target="_top">
+                                    <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/banner-2.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="widget-banner card">
+                                <a href="#" target="_top">
+                                    <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/banner-3.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="widget-banner card">
+                                <a href="#" target="_top">
+                                    <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/banner-4.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget widget-product card">
+                        <header class="card-header">
+                            <h3 class="card-title">
+                                <span>آینه و کنسول</span>
+                            </h3>
+                            <a href="~/pages/ByCategory/1" class="view-all">مشاهده همه</a>
+                        </header>
+                        <div class="product-carousel owl-carousel owl-theme">
+
+                            @foreach (var item in Model.Where(s => s.CategoryId == 1))
+                            {
+
+                                <div class="item">
+                                    <a href="~/pages/SingleProduct/@item.Id">
+                                        <img src="@Url.Content(item.ImageUrl)"
+                                             class="img-fluid" alt="">
+                                    </a>
+                                    <h2 class="post-title">
+                                        <a href="#">@item.Name</a>
+                                    </h2>
+                                    @if (item.NumberAvailable != 0)
+                                    {
+                                        <div class="price">
+                                            <del><span>@item.Price<span>تومان</span></span></del>
+                                            @if (item.OffPrice != 0)
+                                            {
+                                                <ins><span>@item.OffPrice <span>تومان</span></span></ins>
+                                            }
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="price">
+                                            <span style="color:red" class="price-currency">ناموجود</span>
+
+                                        </div>
+                                    }
+
+
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget widget-product card">
+                        <header class="card-header">
+                            <h3 class="card-title">
+                                <span>میوه خوری</span>
+                            </h3>
+                            <a href="~/pages/ByCategory/4" class="view-all">مشاهده همه</a>
+                        </header>
+                        <div class="product-carousel owl-carousel owl-theme">
+
+                            @foreach (var item in Model.Where(s => s.CategoryId == 4))
+                            {
+                            <div class="item">
+                                <a href="~/pages/SingleProduct/@item.Id">
+                                    <img src="@Url.Content(item.ImageUrl)"
+                                         class="img-fluid" alt="">
+                                </a>
+                                <h2 class="post-title">
+                                    <a href="#">@item.Name</a>
+                                </h2>
+                                @if (item.NumberAvailable != 0)
+                                {
+                                    <div class="price">
+                                        <del><span>@item.Price<span>تومان</span></span></del>
+                                        @if (item.OffPrice != 0)
+                                        {
+                                            <ins><span>@item.OffPrice <span>تومان</span></span></ins>
+                                        }
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="price">
+                                        <span style="color:red" class="price-currency">ناموجود</span>
+
+                                    </div>
+                                }
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row banner-ads">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="widget-banner card">
+                                <a href="#" target="_blank">
+                                    <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/banner-9.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="widget-banner card">
+                                <a href="#" target="_top">
+                                    <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/banner-10.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget widget-product card">
+                        <header class="card-header">
+                            <h3 class="card-title">
+                                <span>شیرینی خوری</span>
+                            </h3>
+                            <a href="~/pages/ByCategory/5" class="view-all">مشاهده همه</a>
+                        </header>
+                        <div class="product-carousel owl-carousel owl-theme">
+
+                            @foreach (var item in Model.Where(s => s.CategoryId == 5))
+                            {
+                            <div class="item">
+                                <a href="~/pages/SingleProduct/@item.Id">
+                                    <img src="@Url.Content(item.ImageUrl)"
+                                         class="img-fluid" alt="">
+                                </a>
+                                <h2 class="post-title">
+                                    <a href="#">@item.Name</a>
+                                </h2>
+                                @if (item.NumberAvailable != 0)
+                                {
+                                    <div class="price">
+                                        <del><span>@item.Price<span>تومان</span></span></del>
+                                        @if (item.OffPrice != 0)
+                                        {
+                                            <ins><span>@item.OffPrice <span>تومان</span></span></ins>
+                                        }
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="price">
+                                        <span style="color:red" class="price-currency">ناموجود</span>
+
+                                    </div>
+                                }
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget widget-product card">
+                        <header class="card-header">
+                            <h3 class="card-title">
+                                <span>میوه خوری ایستاده</span>
+                            </h3>
+                            <a href="~/pages/ByCategory/6" class="view-all">مشاهده همه</a>
+                        </header>
+                        <div class="product-carousel owl-carousel owl-theme">
+
+                            @foreach (var item in Model.Where(s => s.CategoryId == 6))
+                            {
+                            <div class="item">
+                                <a href="~/pages/SingleProduct/@item.Id">
+                                    <img src="@Url.Content(item.ImageUrl)"
+                                         class="img-fluid" alt="">
+                                </a>
+                                <h2 class="post-title">
+                                    <a href="#">@item.Name</a>
+                                </h2>
+                                @if (item.NumberAvailable != 0)
+                                {
+                                    <div class="price">
+                                        <del><span>@item.Price<span>تومان</span></span></del>
+                                        @if (item.OffPrice != 0)
+                                        {
+                                            <ins><span>@item.OffPrice <span>تومان</span></span></ins>
+                                        }
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="price">
+                                        <span style="color:red" class="price-currency">ناموجود</span>
+
+                                    </div>
+                                }
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row banner-ads">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget widget-banner card">
+                                <a href="#" target="_blank">
+                                    <img class="img-fluid" src="~/Content/TopKala/assets/img/banner/banner-11.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget widget-product card">
+                        <header class="card-header">
+                            <h3 class="card-title">
+                                <span>مجسمه</span>
+                            </h3>
+                            <a href="~/pages/ByCategory/7" class="view-all">مشاهده همه</a>
+                        </header>
+                        <div class="product-carousel owl-carousel owl-theme">
+
+                            @foreach (var item in Model.Where(s => s.CategoryId == 7))
+                            {
+                            <div class="item">
+                                <a href="~/pages/SingleProduct/@item.Id">
+                                    <img src="@Url.Content(item.ImageUrl)"
+                                         class="img-fluid" alt="">
+                                </a>
+                                <h2 class="post-title">
+                                    <a href="#">@item.Name</a>
+                                </h2>
+                                @if (item.NumberAvailable != 0)
+                                {
+                                    <div class="price">
+                                        <del><span>@item.Price<span>تومان</span></span></del>
+                                        @if (item.OffPrice != 0)
+                                        {
+                                            <ins><span>@item.OffPrice <span>تومان</span></span></ins>
+                                        }
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="price">
+                                        <span style="color:red" class="price-currency">ناموجود</span>
+
+                                    </div>
+                                }
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="brand-slider card">
+                <header class="card-header">
+                    <h3 class="card-title"><span>برندهای ویژه</span></h3>
+                </header>
+                <div class="owl-carousel">
+                    @foreach (var item in ViewBag.Brands)
+                    {
+                        <div class="item">
+                            <a href="~/pages/ByBrand/@item.Id">
+                                @item.Name
+                                <img src="@Url.Content(item.Image)" alt=" @item.Name">
+                            </a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

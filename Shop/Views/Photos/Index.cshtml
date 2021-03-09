@@ -1,0 +1,165 @@
+﻿@model Shop.Models.PagedList<Shop.Models.Photo>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title"> گالری تصاویر</h3>
+    </div>
+
+    <hr>
+    <section class="content">
+
+        @using (Html.BeginForm("index", null, FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="text"
+                               name="filter"
+                               value="@ViewBag.filter"
+                               class="form-control"
+                               style="display: inline"
+                               placeholder="Search" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">جستوجو</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="pull-right col-lg-1">
+                    <a class="btn btn-success" data-modal="" href="/photos/create" id="btnCreate">
+                        افزودن تصاویر
+                        <span class="glyphicon glyphicon-plus"> </span>
+
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+            <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+                <!-- The container for the modal slides -->
+                <div class="slides"></div>
+                <!-- Controls for the borderless lightbox -->
+                <h3 class="title"></h3>
+
+                <a class="prev">‹</a>
+                <a class="next">›</a>
+                <a class="close">×</a>
+                <a class="play-pause"></a>
+                <ol class="indicator"></ol>
+                <!-- The modal dialog, which will be used to wrap the lightbox content -->
+                <div class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body next" style="max-height: 500px; min-height: 400px;"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left prev">
+                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                    Previous
+                                </button>
+                                <button type="button" class="btn btn-primary next">
+                                    Next
+                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 17px;">
+                <div id="links">
+                    <table id="customers" class="table table-bordered table-condensed table-hover table-striped table-responsive">
+                        <thead>
+                            <tr class="success">
+                                <th>نام</th>
+                                <th>تصویر</th>
+                                <th>سورس تصویر</th>
+                                <th>سورس کوچک</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Content)
+                            {
+
+                                <tr>
+                                    <td>
+                                        <p>@item.Decription </p>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Content(@item.ImagePath)" title="@item.Decription" data-gallery>
+
+                                            <img src="@Url.Content(@item.ThumbPath)" alt="@item.Decription" class="img-rounded" style="margin-bottom:7px;" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            @item.ImagePath
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            @item.ThumbPath
+                                        </p>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                @{
+                    var grid = new WebGrid(
+                                canPage: true,
+                                rowsPerPage: Model.PageSize,
+                                canSort: true,
+                                ajaxUpdateContainerId: "grid");
+
+                    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                    grid.Pager(WebGridPagerModes.All);
+
+                    @grid.GetHtml(htmlAttributes: new { id = "grid" },
+                    fillEmptyRows: false,
+                    mode: WebGridPagerModes.All,
+                    columns: grid.Columns());
+                }
+            </div>
+        }
+
+    </section>
+</div>
+
+@section scripts
+    {
+    <script>
+
+        $("#customers").on("click", ".js-delete", function () {
+
+            var button = $(this);
+            bootbox.confirm("از حذف این مورد اطمینان دارید؟", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/Edit/" + button.attr("data-customer-id"),
+                        method: "DELETE",
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    });
+                }
+            });
+
+        });
+
+                                                                    });
+    </script>
+}

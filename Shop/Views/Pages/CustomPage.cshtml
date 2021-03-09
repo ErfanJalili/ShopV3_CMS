@@ -1,0 +1,13 @@
+﻿@model Shop.Models.Page.Page
+@{
+    ViewBag.Title = "CustomPage";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+
+
+@{
+    IHtmlString str = new HtmlString(Model.FullDescription);
+}
+
+@str
